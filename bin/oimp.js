@@ -12,7 +12,7 @@ const packageCommand = require("../lib/commands/package");
 const statusCommand = require("../lib/commands/status");
 
 program
-  .name("oi-tool")
+  .name("oimp")
   .description("CLI tool for generating OI problem packages")
   .version(version);
 
