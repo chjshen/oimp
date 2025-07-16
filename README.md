@@ -5,7 +5,7 @@
 
 ## 项目结构
 ```
-oi-tool/
+oimp/
 ├── bin/
 │   └── oimp.js        # 命令行入口
 ├── lib/

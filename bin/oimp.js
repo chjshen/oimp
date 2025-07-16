@@ -5,12 +5,12 @@ const { version } = require("../package.json");
 
 // 导入子命令
 const initCommand = require("../lib/commands/init");
-const checkCommand = require("../lib/commands/check");
+const { checkCommand }  = require("../lib/commands/check");
 const editCommand = require("../lib/commands/edit");
 const generateCommand = require("../lib/commands/genrate");
 const packageCommand = require("../lib/commands/package");
 const statusCommand = require("../lib/commands/status");
-
+const testsampleCommand  = require('../lib/commands/testsample')
 program
   .name("oimp")
   .description("CLI tool for generating OI problem packages")
@@ -46,6 +46,12 @@ program
   .command("status <problem-name>")
   .description("problem status")
   .action(statusCommand);
+
+// 状态命令
+program
+.command("testsample <problem-name>")
+.description("problem test samples")
+.action(testsampleCommand);
 
 // 生成测试数据命令
 program

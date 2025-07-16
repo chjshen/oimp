@@ -1,6 +1,6 @@
 {
   "name": "oimp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A CLI tool for generating OI problem  and packages",
   "bin": {
     "oimp": "./bin/oimp.js"
@@ -17,7 +17,6 @@
     "zip-a-folder": "^1.1.3"
   },
   "license": "MIT",
-  
   "devDependencies": {
     "fs": "^0.0.1-security",
     "mkdirp": "^3.0.1",
