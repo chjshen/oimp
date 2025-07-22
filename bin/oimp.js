@@ -11,6 +11,7 @@ const generateCommand = require("../lib/commands/genrate");
 const packageCommand = require("../lib/commands/package");
 const statusCommand = require("../lib/commands/status");
 const testsampleCommand  = require('../lib/commands/testsample')
+const watchCommand = require("../lib/commands/watch");
 program
   .name("oimp")
   .description("CLI tool for generating OI problem packages")
@@ -59,5 +60,12 @@ program
   .description("Generate test data using validator")
   .option("-c, --count <number>", "Number of test cases to generate", parseInt)
   .action(generateCommand);
+
+// watch命令
+program
+  .command("watch <problem-name>")
+  .description("Watch markdown file and auto-refresh HTML preview")
+  .option("-p, --port <number>", "Port number for preview server", parseInt)
+  .action(watchCommand);
 
 program.parse(process.argv);
