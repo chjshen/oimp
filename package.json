@@ -1,6 +1,6 @@
 {
   "name": "oimp",
-  "version": "1.0.1",
+  "version": "1.1.4",
   "description": "A CLI tool for generating OI problem  and packages",
   "bin": {
     "oimp": "./bin/oimp.js"
@@ -9,19 +9,30 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "archiver": "^7.0.1",
     "chalk": "^4.1.2",
+    "chokidar": "^3.5.3",
     "commander": "^9.4.1",
+    "express": "^4.18.2",
+    "highlight.js": "^11.9.0",
     "inquirer": "^8.2.4",
     "js-yaml": "^4.1.0",
-    "simple-git": "^3.7.1",
-    "zip-a-folder": "^1.1.3"
+    "katex": "^0.16.9",
+    "marked": "^9.1.6",
+    "marked-highlight": "^2.0.1",
+    "mkdirp": "^3.0.1",
+    "open": "^9.1.0",
+    "rimraf": "^6.0.1",
+    "ws": "^8.18.3"
   },
-  "keywords":["oi","make problem","problem generator"],
+  "keywords": [
+    "oi",
+    "make problem",
+    "problem generator"
+  ],
   "license": "MIT",
   "devDependencies": {
-    "fs": "^0.0.1-security",
-    "mkdirp": "^3.0.1",
-    "rimraf": "^6.0.1"
+    "inquirer-test": "^2.0.1"
   },
   "repository": {
     "type": "git",
