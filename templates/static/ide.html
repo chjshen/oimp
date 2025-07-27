@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>OI Tools Web IDE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/xterm/xterm.css">
+  <link rel="stylesheet" href="/static/jstree/themes/default-dark/style.min.css">
+  <link rel="stylesheet" href="/static/ide.css">
+  <link rel="stylesheet" href="/static/preview-themes/github-dark.min.css">
+</head>
+
+<body>
+  <div id="topbar">
+    <span class="title">OIMP Web IDE</span>
+    <button id="btn-save" title="保存 (Ctrl+S)"
+      style="width:28px;height:28px;padding:0;margin-right:6px;border-radius:7px;border:1.5px solid transparent;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.08s,box-shadow 0.08s,border-color 0.08s;">
+      <svg width="14" height="14" viewBox="0 0 18 18" class="tree-arrow-svg">
+        <rect x="3" y="3" width="12" height="12" rx="2" fill="none" stroke="#2563eb" stroke-width="2" />
+        <polyline points="6,7 9,10 12,7" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </button>
+    <button id="btn-reload" title="重载"
+      style="width:28px;height:28px;padding:0;margin-right:6px;border-radius:7px;border:1.5px solid transparent;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.08s,box-shadow 0.08s,border-color 0.08s;">
+      <svg width="14" height="14" viewBox="0 0 18 18" class="tree-arrow-svg">
+        <path d="M4 10a5 5 0 1 0 2-6" fill="none" stroke="#2563eb" stroke-width="2" />
+        <polyline points="4,4 4,10 10,10" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </button>
+    <span id="current-file" style="margin-left:16px;font-size:12px;"></span>
+    <span id="unsaved-indicator"
+      style="margin-left:8px;color:#e11d48;font-size:13px;display:none;vertical-align:middle;">● 有未保存更改</span>
+    <span id="status-panel-wrap" style="margin-left:32px; display:inline-block; vertical-align:middle;">
+      <span id="status-panel"></span>
+      <!-- 删去刷新状态按钮 -->
+    </span>
+    <!-- 已移除命令按钮区域 -->
+  </div>
+  <div id="ide-preview-main" style="flex:1; display:flex; min-height:0; position:relative;overflow:clip;">
+    <div id="ide-main"
+      style="width:60%; min-width:200px; display:flex; min-width:0; min-height:0; position:relative; height:100%;">
+      <div id="file-tree-wrap" style="display:flex;flex-direction:column;height:100%;">
+        <div id="file-tree-toolbar"
+          style="display:flex;align-items:center;padding:4px 8px 2px 8px;background:#f3f4f6;border-bottom:1px solid #e5e7eb;">
+          <button id="btn-new-file" title="新建文件"
+            style="margin-right:6px;width:28px;height:28px;padding:0;border-radius:7px;border:1.5px solid transparent;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.08s,box-shadow 0.08s,border-color 0.08s;"><svg
+              width="14" height="14" viewBox="0 0 18 18" class="tree-arrow-svg">
+              <rect x="3" y="3" width="12" height="12" rx="2" fill="none" stroke="#2563eb" stroke-width="2" />
+              <line x1="9" y1="6" x2="9" y2="12" stroke="#2563eb" stroke-width="2" />
+              <line x1="6" y1="9" x2="12" y2="9" stroke="#2563eb" stroke-width="2" />
+            </svg></button>
+          <button id="btn-new-folder" title="新建文件夹"
+            style="margin-right:6px;width:28px;height:28px;padding:0;border-radius:7px;border:1.5px solid transparent;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.08s,box-shadow 0.08s,border-color 0.08s;"><svg
+              width="14" height="14" viewBox="0 0 18 18" class="tree-arrow-svg">
+              <rect x="2" y="7" width="14" height="7" rx="2" fill="none" stroke="#2563eb" stroke-width="2" />
+              <path d="M2 7 L6 4 H16 V14" fill="none" stroke="#2563eb" stroke-width="2" />
+            </svg></button>
+        </div>
+        <div id="file-tree" style="flex:1 1 0;overflow-y:auto;"></div>
+      </div>
+      <div id="tree-dragbar"
+        style="width:9px; cursor:col-resize; background:#eee; z-index:11; position:relative; display:flex; align-items:center; justify-content:center;">
+        <button id="toggle-tree-btn" title="显示/隐藏文件树"
+          style="position:absolute;left:0;top:50%;transform:translateY(-50%);width:13px;height:28px;padding:0;border:none;background:transparent;cursor:pointer;font-size:13px;line-height:1;z-index:12;display:flex;align-items:center;justify-content:center;">⫶</button>
+      </div>
+      <div id="editor" style="position:relative; flex:1; min-width:0;"></div>
+      <!-- textarea 只在编辑器区域内 -->
+      <!-- 注意：textarea 由 JS 动态插入到 #editor 内部 -->
+    </div>
+    <div id="dragbar" style="width:6px; cursor:col-resize; background:#eee; z-index:10;"></div>
+    <div id="preview" style="width:40%; min-width:320px; overflow:auto; ">
+      <div id="preview-html"
+        style="width:100%; height:100%; min-height:100px; padding:12px 18px 32px 18px; overflow: auto; box-sizing:border-box; font-family:inherit;">
+      </div>
+    </div>
+  </div>
+  <div id="terminal-dragbar" style="height:5px; cursor:row-resize; background:#eee; z-index:12;"></div>
+  <div id="terminal" style="height:180px;"></div>
+  
+      <!-- 步骤化按钮栏 -->
+    <div id="workflow-bar">
+    <!-- 题目工作流标题 -->
+    <div id="workflow-title">构建题目工作流</div>
+    <div id="workflow-buttons">
+      <!-- 左侧独立操作区域 -->
+      <div id="workflow-independent-ops" class="workflow-independent-ops">
+                          <!-- 题目状态 -->
+                  <button id="workflow-status" class="workflow-btn workflow-independent-btn" data-step="status" title="查看题目的完成状态和进度">
+                    <div class="workflow-btn-content">
+                      <div class="workflow-btn-icon">📈</div>
+                      <div class="workflow-btn-text">题目状态</div>
+                    </div>
+                  </button>
+        
+                          <!-- 编辑题目元数据 -->
+                  <button id="workflow-edit" class="workflow-btn workflow-independent-btn" data-step="edit" title="编辑题目的基本信息、标签、限制等元数据">
+                    <div class="workflow-btn-content">
+                      <div class="workflow-btn-icon">✏️</div>
+                      <div class="workflow-btn-text">编辑题目元数据</div>
+                    </div>
+                  </button>
+        
+                          <!-- 修复 -->
+                  <button id="workflow-fix" class="workflow-btn workflow-independent-btn" data-step="fix" title="自动修复题目中的常见问题和错误">
+                    <div class="workflow-btn-content">
+                      <div class="workflow-btn-icon">🔧</div>
+                      <div class="workflow-btn-text">修复</div>
+                    </div>
+                  </button>
+        
+                          <!-- 快照 -->
+                  <button id="workflow-snapshot" class="workflow-btn workflow-independent-btn" data-step="snapshot" title="创建或管理题目的版本快照">
+                    <div class="workflow-btn-content">
+                      <div class="workflow-btn-icon">📸</div>
+                      <div class="workflow-btn-text">快照</div>
+                    </div>
+                  </button>
+      </div>
+      
+      <!-- 主工作流区域 -->
+      <div id="workflow-main-flow" class="workflow-main-flow">
+                        <!-- 编辑题面 -->
+                  <button id="workflow-edit-problem" class="workflow-btn" data-step="edit-problem" title="编辑题目的描述、输入输出格式等题面内容">
+                    <div class="workflow-btn-content">
+                      <div class="workflow-btn-icon">📝</div>
+                      <div class="workflow-btn-text">编辑题面</div>
+                    </div>
+                  </button>
+      
+      <!-- 箭头连接线 -->
+      <div class="workflow-arrow">
+        <svg width="20" height="12" viewBox="0 0 20 12">
+          <path d="M0 6 L15 6 M15 6 L10 2 M15 6 L10 10" stroke="#94a3b8" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      
+      <!-- 四个并列按钮容器 -->
+      <div class="workflow-parallel-container">
+                            <!-- 生成样例 -->
+                    <button id="workflow-gen-sample" class="workflow-btn workflow-parallel-btn" data-step="gen-sample" title="编辑题面，在题面中定义样例输入输出">
+                      <div class="workflow-btn-content">
+                        <div class="workflow-btn-icon">📋</div>
+                        <div class="workflow-btn-text">生成样例</div>
+                      </div>
+                    </button>
+        
+                            <!-- 编辑标程 -->
+                    <button id="workflow-edit-std" class="workflow-btn workflow-parallel-btn" data-step="edit-std" title="编辑题目的标准解答程序">
+                      <div class="workflow-btn-content">
+                        <div class="workflow-btn-icon">💻</div>
+                        <div class="workflow-btn-text">编辑标程</div>
+                      </div>
+                    </button>
+        
+                            <!-- 编辑数据生成器 -->
+                    <button id="workflow-edit-generator" class="workflow-btn workflow-parallel-btn" data-step="edit-generator" title="编辑用于生成测试数据的程序">
+                      <div class="workflow-btn-content">
+                        <div class="workflow-btn-icon">🔧</div>
+                        <div class="workflow-btn-text">编辑数据生成器</div>
+                      </div>
+                    </button>
+        
+                            <!-- 编辑输入验证器 -->
+                    <button id="workflow-edit-validator" class="workflow-btn workflow-parallel-btn" data-step="edit-validator" title="编辑用于验证输入数据格式的程序">
+                      <div class="workflow-btn-content">
+                        <div class="workflow-btn-icon">✅</div>
+                        <div class="workflow-btn-text">编辑输入验证器</div>
+                      </div>
+                    </button>
+                    
+                    <!-- 编辑评测器 -->
+                    <button id="workflow-edit-checker" class="workflow-btn workflow-parallel-btn" data-step="edit-checker" title="编辑用于评测程序输出的程序">
+                      <div class="workflow-btn-content">
+                        <div class="workflow-btn-icon">⚖️</div>
+                        <div class="workflow-btn-text">编辑评测器</div>
+                      </div>
+                    </button>
+      </div>
+      
+      <!-- 箭头连接线 -->
+      <div class="workflow-arrow">
+        <svg width="20" height="12" viewBox="0 0 20 12">
+          <path d="M0 6 L15 6 M15 6 L10 2 M15 6 L10 10" stroke="#94a3b8" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      
+
+      
+      <!-- 测试样例 -->
+      <button id="workflow-testsample" class="workflow-btn" data-step="testsample" title="使用样例数据测试标程和验证器">
+        <div class="workflow-btn-content">
+          <div class="workflow-btn-icon">🧪</div>
+          <div class="workflow-btn-text">测试样例</div>
+        </div>
+      </button>
+      
+      <!-- 箭头连接线 -->
+      <div class="workflow-arrow">
+        <svg width="20" height="12" viewBox="0 0 20 12">
+          <path d="M0 6 L15 6 M15 6 L10 2 M15 6 L10 10" stroke="#94a3b8" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      
+      <!-- 检查和数据生成容器 -->
+      <div class="workflow-check-data-container">
+        <!-- 检查 -->
+        <button id="workflow-check" class="workflow-btn workflow-check-data-btn" data-step="check" title="检查题目的完整性和正确性">
+          <div class="workflow-btn-content">
+            <div class="workflow-btn-icon">🔍</div>
+            <div class="workflow-btn-text">检查</div>
+          </div>
+        </button>
+        
+        <!-- 生成数据 -->
+        <button id="workflow-gendata" class="workflow-btn workflow-check-data-btn" data-step="gendata" title="使用数据生成器创建测试数据">
+          <div class="workflow-btn-content">
+            <div class="workflow-btn-icon">📊</div>
+            <div class="workflow-btn-text">生成数据</div>
+          </div>
+        </button>
+      </div>
+      
+      <!-- 箭头连接线 -->
+      <div class="workflow-arrow">
+        <svg width="20" height="12" viewBox="0 0 20 12">
+          <path d="M0 6 L15 6 M15 6 L10 2 M15 6 L10 10" stroke="#94a3b8" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      
+      <!-- 打包 -->
+      <button id="workflow-package" class="workflow-btn" data-step="package" title="将题目打包为可发布的格式">
+        <div class="workflow-btn-content">
+          <div class="workflow-btn-icon">📦</div>
+          <div class="workflow-btn-text">打包</div>
+        </div>
+      </button>
+      
+
+      </div>
+    </div>
+  </div>
+  <div id="run-log-modal">
+    <div id="run-log-title">命令执行</div>
+    <button id="run-log-close">×</button>
+    <div id="run-log-status"></div>
+    <div id="run-log-content"></div>
+    <div id="run-log-input-wrap"
+      style="display:none; padding:8px 18px 12px 18px; background:#23272e; border-top:1px solid #27272a;">
+      <input id="run-log-input" type="text"
+        style="width:80%;font-size:13px;padding:3px 8px;border-radius:4px;border:1px solid #444;background:#18181b;color:#e5e7eb;outline:none;"
+        placeholder="请输入交互内容后回车..." />
+      <button id="run-log-send"
+        style="font-size:13px;margin-left:8px;padding:2px 10px;border-radius:4px;border:none;background:#4ade80;color:#222;cursor:pointer;">发送      </button>
+      </div>
+    </div>
+  </div>
+  <script src="/static/xterm/xterm.js"></script>
+  <script src="/static/xterm/xterm-addon-fit.js"></script>
+  <link rel="stylesheet" href="/static/katex.min.css">
+  <script src="/static/katex.min.js"></script>
+  <script src="/static/auto-render.min.js"></script>
+  <script src="/static/jquery.min.js"></script>
+  <script src="/static/jstree/jstree.js"></script>
+  <script src="/static/marked/marked.min.js"></script>
+  <script src="/static/monaco/min/vs/loader.js"></script>
+  
+  
+  
+  <link rel="stylesheet" href="/static/hljs-github.min.css">
+  <script src="/static/highlight.min.js"></script>
+  <script src="/static/ide.js"></script>
+  
+
+  
+</body>
+
+</html>

@@ -1,0 +1,1188 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+}
+
+#ide-main {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+    height: 100%;
+}
+
+#ide-preview-main {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+    overflow: hidden;
+    height: 100%;
+}
+
+#file-tree {
+    width: 220px;
+    height: 100%;
+    /* border-right: 1px solid #ddd; */
+    overflow-y: auto;
+    background: #010101;
+}
+
+#file-tree-toolbar {
+    display: flex;
+    align-items: center;
+    padding: 4px 8px 2px 8px;
+    background: #010101 !important;
+    border-bottom: 1px solid #232b3a !important;
+}
+#file-tree-toolbar button {
+    background: linear-gradient(135deg, #232b3a 0%, #181f2a 100%) !important;
+    border: 1.5px solid #334155 !important;
+    color: #e5eaf3 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(20,30,50,0.10);
+    transition: background 0.18s, border 0.18s, color 0.18s;
+}
+#file-tree-toolbar button:hover {
+    background: linear-gradient(135deg, #334155 0%, #232b3a 100%) !important;
+    border-color: #3b82f6 !important;
+    color: #fff !important;
+}
+
+.jstree-default-dark .jstree-wholerow-clicked {
+    background: #182836 !important;
+    background: -webkit-linear-gradient(top, #0c141b 0%, #142330 100%); 
+    background: linear-gradient(to bottom, #13212c 0%, #1b2e3e 100%); 
+}
+
+#editor {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+#preview-html {
+    width: 100%;
+    height: 100%;
+    min-height: 100px;
+    padding: 12px 18px 32px 18px;
+    /* 增大底部内边距 */
+    box-sizing: border-box;
+    font-family: inherit;
+    overflow: auto;
+    background: rgb(24,24,29) !important;
+    color: #c9d1d9;
+}
+
+#preview {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: #0d1117 !important;
+    border: none;
+}
+
+#terminal {
+    position: relative;
+    z-index: 100;
+    height: 200px;
+    min-height: 200px;
+    max-height: none;
+    border-top: none;
+    background: #1e1e1e;
+    color: #fff;
+    font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+    font-size: 14px;
+    overflow: hidden;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+.xterm {
+    flex: 1 1 auto;
+    height: 100% !important;
+}
+
+#terminal, .xterm, .xterm-viewport, .xterm-screen {
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+}
+
+.monaco-editor .decorationsOverviewRuler,
+.monaco-scrollable-element {
+    z-index: 1 !important;
+}
+
+#topbar {
+    height: 40px;
+    background: #24292f;
+    color: #949495;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+}
+
+#topbar .title {
+    font-weight: bold;
+    margin-right: 24px;
+}
+
+#topbar button {
+    margin-right: 8px;
+}
+
+/* 题目状态面板美化 */
+#status-panel {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    vertical-align: middle;
+    transform: scale(0.9);
+    transform-origin: left center;
+}
+
+.status-card {
+    display: flex;
+    align-items: center;
+    background: #f6f8fa;
+    border-radius: 6px;
+    padding: 2px 8px 2px 4px;
+    margin-right: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    min-width: 40px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.status-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    margin-right: 3px;
+    display: inline-block;
+}
+
+/* 深色主题状态按钮 */
+.status-done {
+    background: linear-gradient(135deg, #10281a 0%, #174c2f 100%);
+    color: 999999;
+    /* border: 1px solid #388e3c; */
+}
+.status-dot-done {
+    background: #43a047;
+}
+.status-pending {
+    background: linear-gradient(135deg, #2d2300 0%, #5c4200 100%);
+    color: 999999;;
+    /* border: 1px solid #b26a00; */
+}
+.status-dot-pending {
+    background: #ffb300;
+}
+.status-error,
+.status-failed {
+    background: linear-gradient(135deg, #2a0d0d 0%, #5c1a1a 100%);
+    color: 999999;;
+    /* border: 1px solid #b71c1c; */
+}
+.status-dot-error,
+.status-dot-failed {
+    background: #e53935;
+}
+.status-unknown {
+    background: linear-gradient(135deg, #23272b 0%, #3a3f44 100%);
+    color: 999999;;
+    border: 1px solid #616161;
+}
+.status-dot-unknown {
+    background: #757575;
+}
+.status-need-redo {
+    background: linear-gradient(135deg, #2a0d0d 0%, #5c1a1a 100%);
+    color: 999999;;
+    /* border: 1px solid #b71c1c; */
+}
+.status-dot-need-redo {
+    background: #e53935;
+}
+
+/* 自定义 tooltip 样式 */
+.status-tooltip {
+    position: absolute;
+    z-index: 9999;
+    background: #222;
+    color: #fff;
+    font-size: 12px;
+    padding: 7px 12px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    pointer-events: none;
+    white-space: pre-line;
+    max-width: 320px;
+    line-height: 1.5;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.run-btn {
+    font-size: 0.9em;
+    padding: 2px 10px;
+    margin-left: 6px;
+    background: #e0e7ef;
+    border: none;
+    border-radius: 5px;
+    color: #374151;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.run-btn:hover {
+    background: #c7d2fe;
+    color: #1e40af;
+}
+
+#run-log-modal {
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 420px;
+    max-width: 90vw;
+    max-height: 60vh;
+    background: #18181b;
+    color: #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+    z-index: 9999;
+    display: none;
+    flex-direction: column;
+}
+
+#run-log-modal.active {
+    display: flex;
+}
+
+#run-log-title {
+    font-size: 15px;
+    font-weight: bold;
+    padding: 12px 18px 6px 18px;
+    border-bottom: 1px solid #27272a;
+}
+
+#run-log-content {
+    font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+    font-size: 13px;
+    padding: 12px 18px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    flex: 1;
+    background: #18181b;
+    min-height: 120px;
+    max-height: 40vh;
+}
+
+#run-log-close {
+    position: absolute;
+    right: 18px;
+    top: 12px;
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#run-log-close:hover {
+    color: #f87171;
+}
+
+#run-log-status {
+    font-size: 13px;
+    color: #a3e635;
+    margin-left: 18px;
+    margin-bottom: 10px;
+}
+
+/* 终端窗口按钮美化 */
+.terminal-btn-bar button {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
+    color: #222;
+    font-size: 12px;
+    margin-left: 0;
+    margin-right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.18s, border 0.18s;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+    outline: none;
+}
+
+.terminal-btn-bar button:hover {
+    background: #e0e7ef;
+    border: 1.5px solid #60a5fa;
+    color: #1e40af;
+}
+
+.terminal-btn-bar button.min-btn {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+    border-color: #475569 !important;
+}
+
+.terminal-btn-bar button.min-btn:hover {
+    background: linear-gradient(135deg, #334155 0%, #1e293b 100%) !important;
+    border-color: #64748b !important;
+}
+
+.terminal-btn-bar button.max-btn {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+    border-color: #475569 !important;
+}
+
+.terminal-btn-bar button.max-btn:hover {
+    background: linear-gradient(135deg, #334155 0%, #1e293b 100%) !important;
+    border-color: #64748b !important;
+}
+
+.terminal-btn-bar button.restore-btn {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+    border-color: #475569 !important;
+}
+
+.terminal-btn-bar button.restore-btn:hover {
+    background: linear-gradient(135deg, #334155 0%, #1e293b 100%) !important;
+    border-color: #64748b !important;
+}
+
+.terminal-btn-bar button.font-btn {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    color: #222;
+    font-size: 12px;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    margin-left: 0;
+    margin-right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.18s, border 0.18s;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+    outline: none;
+}
+
+.terminal-btn-bar button.font-btn:hover {
+    background: #e0e7ef;
+    border: 1.5px solid #60a5fa;
+    color: #1e40af;
+}
+
+/* 终端按钮自定义 tooltip */
+.terminal-tooltip {
+    position: fixed;
+    z-index: 2000;
+    background: #222;
+    color: #fff;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    pointer-events: none;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.08s;
+}
+
+/* 文件树显示/隐藏按钮样式 */
+#toggle-tree-btn {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1002;
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
+    border-radius: 0 8px 8px 0;
+    color: #222;
+    font-size: 15px;
+    padding: 10px 6px 10px 2px;
+    cursor: pointer;
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.06);
+    transition: background 0.18s, border 0.18s;
+    writing-mode: vertical-lr;
+    text-align: center;
+    user-select: none;
+    outline: none;
+}
+
+#toggle-tree-btn:hover {
+    background: #e0e7ef;
+    border: 1.5px solid #60a5fa;
+    color: #1e40af;
+}
+
+#file-tree .jstree-anchor {
+    font-size: 12px !important;
+}
+
+/* 状态卡片高亮动画 */
+.status-card.status-changed.status-done,
+.status-card.status-done.status-changed {
+    animation: statusFlashDone 2s steps(10, end);
+}
+.status-card.status-changed.status-pending,
+.status-card.status-pending.status-changed {
+    animation: statusFlashPending 2s steps(10, end);
+}
+.status-card.status-changed.status-error,
+.status-card.status-changed.status-failed,
+.status-card.status-error.status-changed,
+.status-card.status-failed.status-changed {
+    animation: statusFlashError 2s steps(10, end);
+}
+.status-card.status-changed.status-need-redo,
+.status-card.status-need-redo.status-changed {
+    animation: statusFlashNeedRedo 2s steps(10, end);
+}
+
+@keyframes statusFlashDone {
+    0%, 20%, 40%, 60%, 80%, 100% {
+        background: linear-gradient(135deg, #10281a 0%, #174c2f 100%);
+        box-shadow: 0 0 0px #43a047;
+        transform: scale(1);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        background: linear-gradient(135deg, #174c2f 0%, #1e6b3a 100%);
+        box-shadow: 0 0 16px 4px #43a047;
+        transform: scale(1.08);
+    }
+}
+@keyframes statusFlashPending {
+    0%, 20%, 40%, 60%, 80%, 100% {
+        background: linear-gradient(135deg, #2d2300 0%, #5c4200 100%);
+        box-shadow: 0 0 0px #ffb300;
+        transform: scale(1);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        background: linear-gradient(135deg, #5c4200 0%, #b26a00 100%);
+        box-shadow: 0 0 16px 4px #ffb300;
+        transform: scale(1.08);
+    }
+}
+@keyframes statusFlashError {
+    0%, 20%, 40%, 60%, 80%, 100% {
+        background: linear-gradient(135deg, #2a0d0d 0%, #5c1a1a 100%);
+        box-shadow: 0 0 0px #e53935;
+        transform: scale(1);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        background: linear-gradient(135deg, #5c1a1a 0%, #b71c1c 100%);
+        box-shadow: 0 0 16px 4px #e53935;
+        transform: scale(1.08);
+    }
+}
+@keyframes statusFlashNeedRedo {
+    0%, 20%, 40%, 60%, 80%, 100% {
+        background: linear-gradient(135deg, #2a0d0d 0%, #5c1a1a 100%);
+        box-shadow: 0 0 0px #e53935;
+        transform: scale(1);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        background: linear-gradient(135deg, #5c1a1a 0%, #b71c1c 100%);
+        box-shadow: 0 0 16px 4px #e53935;
+        transform: scale(1.08);
+    }
+}
+
+/* 顶部未保存指示器和消息条 */
+#unsaved-indicator {
+    font-weight: bold;
+}
+
+#save-msg {
+    position: fixed;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #22c55e;
+    color: #fff;
+    font-size: 15px;
+    padding: 9px 32px;
+    border-radius: 9px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.13);
+    z-index: 3000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s, top 0.18s;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+#save-msg.show {
+    opacity: 1;
+    top: 32px;
+}
+
+/* 工作流按钮栏样式 */
+#workflow-bar {
+    height: 40px;
+    min-height: 40px;
+    background: #24292f;
+    border-top: 1px solid #334155;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.2);
+    transition: height 0.1s ease;
+    overflow: hidden;
+    position: relative;
+    z-index: 1000;
+}
+
+#workflow-title {
+    color: #94a3b8;
+    font-size: 14px;
+    font-weight: 500;
+    transition: opacity 0.1s ease;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1001;
+}
+
+#workflow-bar:hover {
+    height: 250px !important;
+}
+
+/* 终端窗口高度调整由JavaScript处理 */
+
+#workflow-bar:hover #workflow-title {
+    opacity: 1;
+}
+
+#workflow-bar:hover #workflow-buttons {
+    opacity: 1;
+}
+
+#workflow-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    opacity: 0;
+    transition: all 0.1s ease;
+}
+
+/* 左侧独立操作区域 */
+.workflow-independent-ops {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    opacity: 0;
+    transition: all 0.1s ease;
+}
+
+#workflow-bar:hover .workflow-independent-ops {
+    opacity: 1;
+}
+
+/* 主工作流区域 */
+.workflow-main-flow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    transition: all 0.1s ease;
+    position: relative;
+}
+
+/* 独立操作按钮样式 */
+.workflow-independent-btn {
+    min-width: 100px !important;
+    height: 28px !important;
+    padding: 4px 6px !important;
+    background: #475569 !important;
+    border-color: #64748b !important;
+}
+
+.workflow-independent-btn .workflow-btn-icon {
+    font-size: 12px !important;
+}
+
+.workflow-independent-btn .workflow-btn-text {
+    font-size: 9px !important;
+}
+
+.workflow-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #334155;
+    border: 2px solid #475569;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer !important;
+    transition: all 0.2s ease;
+    min-width: 80px;
+    height: 32px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* 默认状态下隐藏编辑题面之后的按钮 */
+.workflow-main-flow .workflow-btn:not(#workflow-edit-problem) {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.1s ease;
+}
+
+#workflow-bar:hover .workflow-main-flow .workflow-btn:not(#workflow-edit-problem) {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+
+/* 并列组内的按钮样式 */
+.workflow-parallel-group .workflow-btn {
+    min-width: 70px;
+    padding: 5px 8px;
+    height: 30px;
+}
+
+.workflow-btn:hover {
+    background: #475569;
+    border-color: #64748b;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    cursor: pointer !important;
+}
+
+.workflow-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    cursor: pointer !important;
+}
+
+.workflow-btn:focus {
+    cursor: pointer !important;
+}
+
+.workflow-btn:visited {
+    cursor: pointer !important;
+}
+
+.workflow-btn:link {
+    cursor: pointer !important;
+}
+
+.workflow-btn:any-link {
+    cursor: pointer !important;
+}
+
+.workflow-btn:disabled {
+    cursor: pointer !important;
+}
+
+.workflow-btn:enabled {
+    cursor: pointer !important;
+}
+
+.workflow-btn-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    cursor: pointer !important;
+}
+
+.workflow-btn-icon {
+    font-size: 14px;
+    line-height: 1;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    cursor: pointer !important;
+}
+
+/* 并列组内的图标样式 */
+.workflow-parallel-group .workflow-btn-icon {
+    font-size: 12px;
+}
+
+.workflow-btn-text {
+    font-size: 10px;
+    font-weight: 500;
+    color: #e2e8f0;
+    line-height: 1;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    cursor: pointer !important;
+}
+
+/* 并列组内的文字样式 */
+.workflow-parallel-group .workflow-btn-text {
+    font-size: 9px;
+}
+
+.workflow-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.1s ease;
+    pointer-events: none;
+}
+
+.workflow-arrow svg path {
+    stroke: #94a3b8;
+}
+
+#workflow-bar:hover .workflow-main-flow .workflow-arrow {
+    opacity: 0.6;
+    transform: translateY(0);
+}
+
+/* 确保所有箭头连接线在悬停时显示 */
+#workflow-bar:hover .workflow-arrow {
+    opacity: 0.6;
+    transform: translateY(0);
+}
+
+/* 四个并列按钮容器 */
+.workflow-parallel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin: 0 8px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.1s ease;
+}
+
+#workflow-bar:hover .workflow-parallel-container {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 检查和数据生成容器 */
+.workflow-check-data-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin: 0 8px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.1s ease;
+}
+
+#workflow-bar:hover .workflow-check-data-container {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 检查和数据生成按钮样式 */
+.workflow-check-data-btn {
+    margin: 2px 0;
+}
+
+/* 并列按钮样式 */
+.workflow-parallel-btn {
+    margin: 2px 0;
+    position: relative;
+}
+
+
+
+.workflow-parallel-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 12px;
+    height: 20px;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.workflow-parallel-arrow svg path {
+    stroke: #94a3b8;
+}
+
+/* 工作流按钮状态样式 */
+.workflow-btn.completed {
+    background: #dcfce7;
+    border-color: #22c55e;
+    color: #166534;
+}
+
+.workflow-btn.completed .workflow-btn-text {
+    color: #166534;
+}
+
+.workflow-btn.current {
+    background: #dbeafe;
+    border-color: #3b82f6;
+    color: #1e40af;
+}
+
+.workflow-btn.current .workflow-btn-text {
+    color: #1e40af;
+}
+
+.workflow-btn.error {
+    background: #fef2f2;
+    border-color: #ef4444;
+    color: #dc2626;
+}
+
+.workflow-btn.error .workflow-btn-text {
+    color: #dc2626;
+}
+
+.workflow-btn.pending {
+    background: #fef3c7;
+    border-color: #f59e0b;
+    color: #d97706;
+}
+
+.workflow-btn.pending .workflow-btn-text {
+    color: #d97706;
+}
+
+/* 1. 滚动条黑暗主题 */
+::-webkit-scrollbar {
+    width: 10px;
+    background: #18181b;
+}
+::-webkit-scrollbar-thumb {
+    background: #232b3a;
+    border-radius: 8px;
+    border: 2px solid #18181b;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #334155;
+}
+::-webkit-scrollbar-corner {
+    background: #18181b;
+}
+
+/* 2. 拖动条（文件树/终端/主区分割）黑暗主题 */
+#dragbar, #terminal-dragbar, #tree-dragbar {
+    background: #232b3a !important;
+    border: none !important;
+    transition: background 0.18s;
+}
+#dragbar:hover, #terminal-dragbar:hover, #tree-dragbar:hover {
+    background: #334155 !important;
+}
+
+/* 3. 工作流区背景为黑色 */
+#workflow-bar {
+    background: #010101 !important;
+    border-top: 1px solid #232b3a !important;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.25);
+}
+#workflow-title {
+    color: #bfc9d4;
+}
+
+/* 4. 工作流按钮现代深色风格 */
+.workflow-btn {
+    background: linear-gradient(135deg, #232b3a 0%, #181f2a 100%) !important;
+    border: 2px solid #334155 !important;
+    color: #e5eaf3 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(20,30,50,0.10);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+.workflow-btn:hover {
+    background: linear-gradient(135deg, #334155 0%, #232b3a 100%) !important;
+    border-color: #3b82f6 !important;
+    color: #fff !important;
+    box-shadow: 0 4px 16px rgba(59,130,246,0.10);
+    transform: translateY(-2px) scale(1.03);
+}
+.workflow-btn:active {
+    background: #181f2a !important;
+    border-color: #2563eb !important;
+    color: #bfc9d4 !important;
+    box-shadow: 0 1px 2px rgba(20,30,50,0.10);
+    transform: none;
+}
+
+/* 5. 工作流独立按钮同样风格 */
+.workflow-independent-btn {
+    background: linear-gradient(135deg, #232b3a 0%, #181f2a 100%) !important;
+    border-color: #334155 !important;
+    color: #e5eaf3 !important;
+    border-radius: 8px !important;
+}
+.workflow-independent-btn:hover {
+    background: linear-gradient(135deg, #334155 0%, #232b3a 100%) !important;
+    border-color: #3b82f6 !important;
+    color: #fff !important;
+}
+
+/* 工作流按钮hover效果与新建文件按钮一致 */
+.workflow-btn,
+.workflow-independent-btn {
+    background: linear-gradient(135deg, #232b3a 0%, #181f2a 100%) !important;
+    border: 2px solid #334155 !important;
+    color: #e5eaf3 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(20,30,50,0.10);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    display: flex;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 6px;
+}
+.workflow-btn:hover,
+.workflow-independent-btn:hover {
+    background: linear-gradient(135deg, #334155 0%, #232b3a 100%) !important;
+    border-color: #3b82f6 !important;
+    color: #fff !important;
+    box-shadow: 0 4px 16px rgba(59,130,246,0.10);
+    transform: translateY(-2px) scale(1.03);
+}
+.workflow-btn:active,
+.workflow-independent-btn:active {
+    background: #181f2a !important;
+    border-color: #2563eb !important;
+    color: #bfc9d4 !important;
+    box-shadow: 0 1px 2px rgba(20,30,50,0.10);
+    transform: none;
+}
+
+/* 图标和文字横向排列 */
+.workflow-btn-content,
+.workflow-independent-btn .workflow-btn-content {
+    flex-direction: row !important;
+    gap: 6px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    display: flex !important;
+}
+.workflow-btn-icon {
+    font-size: 15px;
+    margin-right: 4px;
+    margin-bottom: 0 !important;
+}
+.workflow-btn-text {
+    font-size: 12px;
+    font-weight: 500;
+    color: inherit !important;
+    line-height: 1;
+    white-space: nowrap;
+    margin-left: 0 !important;
+}
+
+/* 统一所有按钮的深色渐变风格 */
+#topbar button,
+#btn-save,
+#btn-reload,
+.terminal-btn-bar button,
+#toggle-tree-btn,
+.run-btn,
+#run-log-close {
+    background: linear-gradient(135deg, #232b3a 0%, #181f2a 100%) !important;
+    border: 1.5px solid #334155 !important;
+    color: #e5eaf3 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(20,30,50,0.10);
+    transition: background 0.18s, border 0.18s, color 0.18s;
+}
+
+#topbar button:hover,
+#btn-save:hover,
+#btn-reload:hover,
+.terminal-btn-bar button:hover,
+#toggle-tree-btn:hover,
+.run-btn:hover,
+#run-log-close:hover {
+    background: linear-gradient(135deg, #334155 0%, #232b3a 100%) !important;
+    border-color: #3b82f6 !important;
+    color: #fff !important;
+}
+
+/* 终端按钮特殊状态保持原有逻辑但使用深色风格 */
+.terminal-btn-bar button.min-btn {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+    border-color: #475569 !important;
+}
+.terminal-btn-bar button.min-btn:hover {
+    background: linear-gradient(135deg, #334155 0%, #1e293b 100%) !important;
+    border-color: #64748b !important;
+}
+
+.terminal-btn-bar button.max-btn {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+    border-color: #475569 !important;
+}
+.terminal-btn-bar button.max-btn:hover {
+    background: linear-gradient(135deg, #334155 0%, #1e293b 100%) !important;
+    border-color: #64748b !important;
+}
+
+.terminal-btn-bar button.restore-btn {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+    border-color: #475569 !important;
+}
+.terminal-btn-bar button.restore-btn:hover {
+    background: linear-gradient(135deg, #334155 0%, #1e293b 100%) !important;
+    border-color: #64748b !important;
+}
+
+/* 样例区按钮深色风格 */
+.sample-btn-bar {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    padding: 0;
+}
+.sample-btn-bar .sample-btn-divider {
+    display: none !important;
+}
+.import-sample-btn,
+.import-from-sample-btn,
+.cancel-sample-btn,
+.sample-copy-btn {
+    background: linear-gradient(135deg, #232b3a 0%, #181f2a 100%) !important;
+    border: none !important;
+    color: #e5eaf3 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(20,30,50,0.10);
+    font-size: 13px;
+    padding: 4px 14px;
+    transition: background 0.18s, color 0.18s;
+    cursor: pointer;
+}
+.import-sample-btn:hover,
+.import-from-sample-btn:hover,
+.cancel-sample-btn:hover,
+.sample-copy-btn:hover {
+    background: linear-gradient(135deg, #334155 0%, #232b3a 100%) !important;
+    color: #fff !important;
+}
+
+/* 预览区 code/pre 深色风格（防止被其他样式覆盖） */
+#preview pre,
+#preview code,
+#preview-html pre,
+#preview-html code {
+    background: #161b22 !important;
+    color: #c9d1d9 !important;
+    border-radius: 6px;
+    font-size: 15px;
+    font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    line-height: 1.7;
+}
+
+/* 复制按钮深色风格 */
+.copy-btn {
+    background: linear-gradient(135deg, #232b3a 0%, #181f2a 100%) !important;
+    border: 1.5px solid #334155 !important;
+    color: #e5eaf3 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(20,30,50,0.10);
+    font-size: 12px;
+    padding: 4px 12px;
+    transition: background 0.18s, border 0.18s, color 0.18s;
+    cursor: pointer;
+    position: absolute;
+    top: 6px;
+    right: 12px;
+    z-index: 10;
+}
+.copy-btn:hover {
+    background: linear-gradient(135deg, #334155 0%, #232b3a 100%) !important;
+    border-color: #3b82f6 !important;
+    color: #fff !important;
+}
+
+#preview button,
+#preview-html button,
+.copy-btn,
+.import-sample-btn,
+.import-from-sample-btn,
+.cancel-sample-btn,
+.sample-copy-btn {
+    background: linear-gradient(135deg, #232b3a 0%, #181f2a 100%) !important;
+    border: 1.5px solid #334155 !important;
+    color: #e5eaf3 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(20,30,50,0.10);
+    font-size: 13px;
+    padding: 4px 14px;
+    transition: background 0.18s, border 0.18s, color 0.18s;
+    cursor: pointer;
+}
+#preview button:hover,
+#preview-html button:hover,
+.copy-btn:hover,
+.import-sample-btn:hover,
+.import-from-sample-btn:hover,
+.cancel-sample-btn:hover,
+.sample-copy-btn:hover {
+    background: linear-gradient(135deg, #334155 0%, #232b3a 100%) !important;
+    border-color: #3b82f6 !important;
+    color: #fff !important;
+}
+
+#preview .btn-bar,
+#preview-html .btn-bar {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
