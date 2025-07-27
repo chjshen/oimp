@@ -5,13 +5,16 @@ const { version } = require("../package.json");
 
 // 导入子命令
 const initCommand = require("../lib/commands/init");
-const { checkCommand }  = require("../lib/commands/check");
+const { checkCommand } = require("../lib/commands/check");
 const editCommand = require("../lib/commands/edit");
-const generateCommand = require("../lib/commands/genrate");
+const gendataCommand = require("../lib/commands/genrate");
 const packageCommand = require("../lib/commands/package");
 const statusCommand = require("../lib/commands/status");
-const testsampleCommand  = require('../lib/commands/testsample')
+const testsampleCommand = require('../lib/commands/testsample')
 const watchCommand = require("../lib/commands/watch");
+const snapshotCommand = require("../lib/commands/snapshot");
+const checklistCommand = require("../lib/commands/status");
+const fixCommand = require("../lib/commands/fix");
 program
   .name("oimp")
   .description("CLI tool for generating OI problem packages")
@@ -50,16 +53,16 @@ program
 
 // 状态命令
 program
-.command("testsample <problem-name>")
-.description("problem test samples")
-.action(testsampleCommand);
+  .command("testsample <problem-name>")
+  .description("problem test samples")
+  .action(testsampleCommand);
 
-// 生成测试数据命令
+// 生成测试数据命令（已重命名为 gendata）
 program
-  .command("generate <problem-name>")
+  .command("gendata <problem-name>")
   .description("Generate test data using validator")
   .option("-c, --count <number>", "Number of test cases to generate", parseInt)
-  .action(generateCommand);
+  .action(gendataCommand);
 
 // watch命令
 program
@@ -67,5 +70,20 @@ program
   .description("Watch markdown file and auto-refresh HTML preview")
   .option("-p, --port <number>", "Port number for preview server", parseInt)
   .action(watchCommand);
+
+program
+  .command("snapshot <action> <problemID> [snapshotName]")
+  .description("快照管理：list/restore")
+  .action((action, problemID, snapshotName) => snapshotCommand(problemID, action, snapshotName));
+
+program
+  .command("checklist <problemID>")
+  .description("显示题目出题流程 Checklist")
+  .action(checklistCommand);
+
+program
+  .command('fix <problemName>')
+  .description('自动补全标准目录和文件，包括 sample 及样例文件')
+  .action(fixCommand);
 
 program.parse(process.argv);
